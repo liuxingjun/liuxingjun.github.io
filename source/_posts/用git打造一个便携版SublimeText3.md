@@ -55,6 +55,8 @@ tags:
   E36B85CC 84991F19 7575D828 470A92AB  
   —— END LICENSE ——  
   ```
+
+  如果有注册成功后 
 ## 上传github
   .gitignore
   ```
