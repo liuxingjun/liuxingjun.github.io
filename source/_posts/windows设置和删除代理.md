@@ -14,7 +14,7 @@ tags:
 `vue init webpack my-project`
 `gem install jekyll`
 类似各种语言&框架的安装程序均不能正确安装
-
+<!-- more -->
 ## 临时生效
   命令行窗口关闭就失效
   1. 设置 
