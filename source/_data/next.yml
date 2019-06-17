@@ -3,7 +3,9 @@ menu:
   tags: /tags/ || tags
   categories: /categories/ || th
   archives: /archives/ || archive
+
 menu_settings:
   icons: true
   badges: true
 
+scheme: Pisces
