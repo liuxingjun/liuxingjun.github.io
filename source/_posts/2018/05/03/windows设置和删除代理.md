@@ -1,7 +1,9 @@
 ---
 title: windows设置和删除代理
 date: 2018-05-03 11:07:38
+categories: 工具
 tags:
+  - windows
   - cmd
   - gitBash
   - http_proxy

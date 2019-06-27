@@ -3,7 +3,7 @@ title: win系统vpn只代理指定地址
 date: 2019-06-17 16:48:25
 categories: 效率
 tags:
-  - win
+  - windows
   - vpn
 ---
 添加一个 vpn
