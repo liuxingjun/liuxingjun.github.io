@@ -97,7 +97,7 @@
 
 
   <meta name="description" content="起因是我在使用ngrok 的时候提示Invalid configuration property value for &amp;#39;http_proxy&amp;#39;, &amp;#39;******@qq.com&amp;#39; 在 gitBash 使用vue init webpack my-projectgem install jekyll类似各种语言&amp;amp;框架的安装程序均不能正确安装">
-<meta name="keywords" content="cmd,gitBash,http_proxy,windows">
+<meta name="keywords" content="windows,cmd,gitBash,http_proxy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows设置和删除代理">
 <meta property="og:url" content="https://liuxingjun.github.io/blog/2018/05/03/windows设置和删除代理/index.html">
@@ -261,7 +261,7 @@
       
     
 
-    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">15</span></a>
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">12</span></a>
 
   </li>
         
@@ -493,13 +493,13 @@
         
         <div class="post-tags">
           
+            <a href="/blog/tags/windows/" rel="tag"># windows</a>
+          
             <a href="/blog/tags/cmd/" rel="tag"># cmd</a>
           
             <a href="/blog/tags/gitBash/" rel="tag"># gitBash</a>
           
             <a href="/blog/tags/http-proxy/" rel="tag"># http_proxy</a>
-          
-            <a href="/blog/tags/windows/" rel="tag"># windows</a>
           
         </div>
       
@@ -545,6 +545,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
 
   
 
@@ -632,12 +636,6 @@
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -856,6 +854,35 @@
 
   
 
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'fb639fd206a2602b67c8',
+    clientSecret: 'a9c5929e3d8337283519722d44a8e32788a92aa5',
+    repo: 'blog',
+    owner: 'liuxingjun',
+    admin: ['liuxingjun'],
+    id: md5(location.pathname),
+    
+      language: 'zh-CN',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
 
   
 
