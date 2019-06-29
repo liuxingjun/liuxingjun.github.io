@@ -869,14 +869,17 @@
 <script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
 
 <script>
+  var labels = 'comment';
+  labels = labels.split(',');
   var gitalk = new Gitalk({
     clientID: 'fb639fd206a2602b67c8',
     clientSecret: 'a9c5929e3d8337283519722d44a8e32788a92aa5',
     repo: 'blog',
     owner: 'liuxingjun',
-    createIssueManually: 'true',
     admin: ['liuxingjun'],
-    id: md5(location.pathname),
+    labels: labels,
+    id: 'windows设置和删除代理',
+    body: '[windows设置和删除代理](${url})',
     
       language: 'zh-CN',
     
