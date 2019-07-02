@@ -52,5 +52,25 @@ PPP 适配器 220.***.***.64:
 永久生效
 `route add -p 需要访问的ip  mask  vpn的子网掩码 vpn的ip` 
 
+更新(2019-07-02)
+
+vpn 内网IP非固定导致断连后 IP 变动 路由失效
+
+动态获取 vpn 内网 IP 添加到路由
+
+```
+ @echo off
+
+for /f "delims=: tokens=2" %%i in ('netsh interface ip show config name^=220.168.85.64 ^| findstr "IP Address"') do (set gateway=%%i)
+
+ECHO %gateway%
+
+route delete 69.171.248.65
+route add 69.171.248.65 mask 255.255.255.255 %gateway%
+
+pause>nul
+```
+
+
 
 
