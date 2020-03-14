@@ -26,7 +26,7 @@ tags:
 ```
 在所有win 命令行下均有此问题，包括cmd,GitBash,PowerShell
 在win10 内置linux下无此问题
-
+<!-- more -->
 下面开始
 
 1. 下载golang

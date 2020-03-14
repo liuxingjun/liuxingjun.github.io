@@ -33,5 +33,5 @@ $ hexo server -s
 
 部署网站(deploy)
 ```bash
-$ hexo d
+$ hexo clean && hexo deploy
 ```
