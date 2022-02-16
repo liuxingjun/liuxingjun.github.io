@@ -3,7 +3,7 @@ name: Pages
 on:
   push:
     branches:
-      - main  # default branch
+      - master  # default branch
   # 手动执行
   workflow_dispatch:
 jobs:
@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 15.x
+      - name: Use Node.js 13.x
         uses: actions/setup-node@v2
         with:
-          node-version: '15'
+          node-version: '13'
       - name: Cache NPM dependencies
         uses: actions/cache@v2
         with:
