@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main  # default branch
-
+  # 手动执行
+  workflow_dispatch:
 jobs:
   pages:
     runs-on: ubuntu-latest
