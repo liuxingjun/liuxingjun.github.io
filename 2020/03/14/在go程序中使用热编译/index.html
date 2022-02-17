@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"liuxingjun.github.io","root":"/blog/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="添加一个 vpn 假设我的vpn名称为220.***.***.64 取消勾选 在远程网络上使用默认网关  查看需要访问的网站的ip 123PS C:\Users\Administrator&gt; ping www.google.com正在 Ping www.google.com [69.171.248.65] 具有 32 字节的数据:  69.171.248.65 即需要访问的ip">
+  <meta name="description" content="我们在使用  kratos  时 发现没有热部署，每次更新代码都要重新编译，并且重新执行即使使用 kratos run 也要 停止命令，重新编译 第一个热编译选择了 oxequa&#x2F;realize  ,实际使用中发现 各种无法运行可能是我打开的方式不对。而且项目好像已经停止维护了… 然后选择 使用 cosmtrek&#x2F;air   中乱码 123456789[11:17:56] wa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="win系统vpn只代理指定地址">
-<meta property="og:url" content="https://liuxingjun.github.io/blog/2019/06/17/win%E7%B3%BB%E7%BB%9Fvpn%E5%8F%AA%E4%BB%A3%E7%90%86%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80/index.html">
+<meta property="og:title" content="在go程序中使用热编译">
+<meta property="og:url" content="https://liuxingjun.github.io/blog/2020/03/14/%E5%9C%A8go%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%83%AD%E7%BC%96%E8%AF%91/index.html">
 <meta property="og:site_name" content="刘星军的博客">
-<meta property="og:description" content="添加一个 vpn 假设我的vpn名称为220.***.***.64 取消勾选 在远程网络上使用默认网关  查看需要访问的网站的ip 123PS C:\Users\Administrator&gt; ping www.google.com正在 Ping www.google.com [69.171.248.65] 具有 32 字节的数据:  69.171.248.65 即需要访问的ip">
+<meta property="og:description" content="我们在使用  kratos  时 发现没有热部署，每次更新代码都要重新编译，并且重新执行即使使用 kratos run 也要 停止命令，重新编译 第一个热编译选择了 oxequa&#x2F;realize  ,实际使用中发现 各种无法运行可能是我打开的方式不对。而且项目好像已经停止维护了… 然后选择 使用 cosmtrek&#x2F;air   中乱码 123456789[11:17:56] wa">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-06-17T08:48:25.000Z">
-<meta property="article:modified_time" content="2022-02-16T06:49:05.054Z">
+<meta property="article:published_time" content="2020-03-14T03:04:46.000Z">
+<meta property="article:modified_time" content="2022-02-17T03:28:00.926Z">
 <meta property="article:author" content="刘星军">
-<meta property="article:tag" content="windows">
-<meta property="article:tag" content="vpn">
+<meta property="article:tag" content="热编译">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://liuxingjun.github.io/blog/2019/06/17/win%E7%B3%BB%E7%BB%9Fvpn%E5%8F%AA%E4%BB%A3%E7%90%86%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80/">
+<link rel="canonical" href="https://liuxingjun.github.io/blog/2020/03/14/%E5%9C%A8go%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%83%AD%E7%BC%96%E8%AF%91/">
 
 
 <script id="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>win系统vpn只代理指定地址 | 刘星军的博客</title>
+  <title>在go程序中使用热编译 | 刘星军的博客</title>
   
 
 
@@ -162,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://liuxingjun.github.io/blog/2019/06/17/win%E7%B3%BB%E7%BB%9Fvpn%E5%8F%AA%E4%BB%A3%E7%90%86%E6%8C%87%E5%AE%9A%E5%9C%B0%E5%9D%80/">
+    <link itemprop="mainEntityOfPage" href="https://liuxingjun.github.io/blog/2020/03/14/%E5%9C%A8go%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%83%AD%E7%BC%96%E8%AF%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -175,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          win系统vpn只代理指定地址
+          在go程序中使用热编译
         </h1>
 
         <div class="post-meta">
@@ -185,14 +184,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-17 16:48:25" itemprop="dateCreated datePublished" datetime="2019-06-17T16:48:25+08:00">2019-06-17</time>
+              <time title="创建时间：2020-03-14 11:04:46" itemprop="dateCreated datePublished" datetime="2020-03-14T11:04:46+08:00">2020-03-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-02-16 14:49:05" itemprop="dateModified" datetime="2022-02-16T14:49:05+08:00">2022-02-16</time>
+                <time title="修改时间：2022-02-17 11:28:00" itemprop="dateModified" datetime="2022-02-17T11:28:00+08:00">2022-02-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -200,7 +199,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E6%95%88%E7%8E%87/" itemprop="url" rel="index"><span itemprop="name">效率</span></a>
+                  <a href="/blog/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a>
                 </span>
             </span>
 
@@ -215,28 +214,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>添加一个 vpn</p>
-<p>假设我的vpn名称为<code>220.***.***.64</code></p>
-<p>取消勾选 <code>在远程网络上使用默认网关</code> </p>
-<p>查看需要访问的网站的ip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\Administrator&gt; ping www.google.com</span><br><span class="line"></span><br><span class="line">正在 Ping www.google.com [69.171.248.65] 具有 32 字节的数据:</span><br></pre></td></tr></table></figure>
-
-<p><code>69.171.248.65</code> 即需要访问的ip </p>
+        <p>我们在使用  <a target="_blank" rel="noopener" href="https://github.com/bilibili/kratos">kratos</a>  时 发现没有热部署，每次更新代码都要重新编译，并且重新执行<br>即使使用 <code>kratos run</code> 也要 停止命令，重新编译</p>
+<p>第一个热编译选择了 <a target="_blank" rel="noopener" href="https://github.com/oxequa/realize">oxequa&#x2F;realize</a>  ,实际使用中发现 各种无法运行<br>可能是我打开的方式不对。而且项目好像已经停止维护了…</p>
+<p>然后选择 使用 <a target="_blank" rel="noopener" href="https://github.com/cosmtrek/air">cosmtrek&#x2F;air</a>   中乱码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[11:17:56] watching internal\service</span><br><span class="line">[11:17:56] !exclude run</span><br><span class="line">[11:17:56] watching test</span><br><span class="line">[11:17:56] building...</span><br><span class="line">[11:17:59] running...</span><br><span class="line">&#x27;.&#x27; �����ڲ����ⲿ���Ҳ���ǿ����еĳ���</span><br><span class="line">���������ļ���</span><br><span class="line">[11:18:05] cleaning...</span><br><span class="line">[11:18:05] see you again~</span><br></pre></td></tr></table></figure>
+<p>在所有win 命令行下均有此问题，包括cmd,GitBash,PowerShell<br>在win10 内置linux下无此问题</p>
 <span id="more"></span>
-
-<p>查看 vpn 分派的IP地址和子网掩码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> C:\Users\Administrator&gt; ipconfig</span><br><span class="line">Windows IP 配置</span><br><span class="line">以太网适配器 vEthernet (默认开关):</span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . :</span><br><span class="line">   本地链接 IPv6 地址. . . . . . . . : fe80::9851:3dc9:7749:8e7a%14</span><br><span class="line">   IPv4 地址 . . . . . . . . . . . . : 172.17.130.113</span><br><span class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.240</span><br><span class="line">   默认网关. . . . . . . . . . . . . :</span><br><span class="line">以太网适配器 以太网:</span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . :</span><br><span class="line">   本地链接 IPv6 地址. . . . . . . . : fe80::803d:b15a:a6b3:23af%5</span><br><span class="line">   IPv4 地址 . . . . . . . . . . . . : 192.168.0.207</span><br><span class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.0</span><br><span class="line">   默认网关. . . . . . . . . . . . . : 192.168.0.1</span><br><span class="line">PPP 适配器 220.***.***.64:  </span><br><span class="line">   连接特定的 DNS 后缀 . . . . . . . :</span><br><span class="line">   IPv4 地址 . . . . . . . . . . . . : 172.30.28.12 (这里是vpn分配的IP)</span><br><span class="line">   子网掩码  . . . . . . . . . . . . : 255.255.255.255 (这里是vpn的子网掩码)</span><br><span class="line">   默认网关. . . . . . . . . . . . . :</span><br></pre></td></tr></table></figure>
-
-<p>单次生效<br><code>route add 需要访问的ip  mask  vpn的子网掩码 vpn的ip</code> </p>
-<p>永久生效<br><code>route add -p 需要访问的ip  mask  vpn的子网掩码 vpn的ip</code> </p>
-<p>更新(2019-07-02)</p>
-<p>vpn 内网IP非固定导致断连后 IP 变动 路由失效</p>
-<p>动态获取 vpn 内网 IP 添加到路由</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> @echo off</span><br><span class="line"></span><br><span class="line">for /f &quot;delims=: tokens=2&quot; %%i in (&#x27;netsh interface ip show config name^=220.168.85.64 ^| findstr &quot;IP Address&quot;&#x27;) do (set gateway=%%i)</span><br><span class="line"></span><br><span class="line">ECHO %gateway%</span><br><span class="line"></span><br><span class="line">route delete 69.171.248.65</span><br><span class="line">route add 69.171.248.65 mask 255.255.255.255 %gateway%</span><br><span class="line"></span><br><span class="line">pause&gt;nul</span><br></pre></td></tr></table></figure>
-
-
-
-
+<p>下面开始</p>
+<ol>
+<li>下载golang<br> 国内 golang 网址：<a target="_blank" rel="noopener" href="https://golang.google.cn/">golang.google.cn</a>  下载linux 压缩包, 可以使用浏览器下载<br> 在下载目录右键 <code>在此处打开linux shell</code><br> 解压文件 <code>tar -C /usr/local -xzf go1.14.linux-amd64.tar.gz</code><br> 增加环境变量 <code>export PATH=$PATH:/usr/local/go/bin</code><br> 执行 <code>go version</code> 确认安装golang成功</li>
+<li>下载air<br> 浏览器下载 <a target="_blank" rel="noopener" href="https://git.io/linux_air">https://git.io/linux_air</a> 移动到刚才命令行窗口的目录 执行命令  <code>mv air /usr/local/bin/air</code><br> 或者  <code>cd /usr/local/bin/; wget -c -O air https://git.io/linux_air </code><br> 执行 <code>air -v</code> 确认安装air成功</li>
+<li>使用air<br> 我是使用的kratos  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"># Config file for [Air](https://github.com/cosmtrek/air) in TOML format</span><br><span class="line"></span><br><span class="line"># Working directory</span><br><span class="line"># . or absolute path, please note that the directories following must be under root.</span><br><span class="line">root = &quot;.&quot;</span><br><span class="line">tmp_dir = &quot;run&quot;</span><br><span class="line"></span><br><span class="line">[build]</span><br><span class="line"># Just plain old shell command. You could use `make` as well.</span><br><span class="line">#cmd = &quot;go build -o run/main.exe main.go&quot; #general</span><br><span class="line">cmd = &quot;go build -o run/cmd.exe ./cmd&quot; #kratos </span><br><span class="line"># Binary file yields from `cmd`.</span><br><span class="line">bin = &quot;run/cmd.exe&quot;</span><br><span class="line"># Customize binary.</span><br><span class="line">#full_bin = &quot;./run/main.exe&quot; #general</span><br><span class="line">full_bin = &quot;./run/cmd.exe -conf ./configs&quot; #kratos </span><br><span class="line"># Watch these filename extensions.</span><br><span class="line">include_ext = [&quot;go&quot;, &quot;tpl&quot;, &quot;tmpl&quot;, &quot;html&quot;]</span><br><span class="line"># Ignore these filename extensions or directories.</span><br><span class="line">exclude_dir = [&quot;.git&quot;,&quot;vendor&quot;,&quot;run&quot;,&quot;.idea&quot;]</span><br><span class="line"># Watch these directories if you specified.</span><br><span class="line">include_dir = []</span><br><span class="line"># Exclude files.</span><br><span class="line">exclude_file = [&quot;.air.conf&quot;]</span><br><span class="line"># It&#x27;s not necessary to trigger build each time file changes if it&#x27;s too frequent.</span><br><span class="line">delay = 1000 # ms</span><br><span class="line"># Stop to run old binary when build errors occur.</span><br><span class="line">stop_on_error = true</span><br><span class="line"># This log file places in your tmp_dir.</span><br><span class="line">log = &quot;air_errors.log&quot;</span><br><span class="line"></span><br><span class="line">[log]</span><br><span class="line"># Show log time</span><br><span class="line">time = true</span><br><span class="line"></span><br><span class="line">[color]</span><br><span class="line"># Customize each part&#x27;s color. If no color found, use the raw app log.</span><br><span class="line">main = &quot;magenta&quot;</span><br><span class="line">watcher = &quot;cyan&quot;</span><br><span class="line">build = &quot;yellow&quot;</span><br><span class="line">runner = &quot;green&quot;</span><br><span class="line"></span><br><span class="line">[misc]</span><br><span class="line"># Delete tmp directory on exit</span><br><span class="line">clean_on_exit = false</span><br></pre></td></tr></table></figure>
+在刚才的窗口执行<code>air</code> 即可</li>
+</ol>
 
     </div>
 
@@ -246,8 +236,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/windows/" rel="tag"># windows</a>
-              <a href="/blog/tags/vpn/" rel="tag"># vpn</a>
+              <a href="/blog/tags/%E7%83%AD%E7%BC%96%E8%AF%91/" rel="tag"># 热编译</a>
           </div>
 
         
@@ -256,13 +245,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/2018/05/03/windows%E8%AE%BE%E7%BD%AE%E5%92%8C%E5%88%A0%E9%99%A4%E4%BB%A3%E7%90%86/" rel="prev" title="windows设置和删除代理">
-      <i class="fa fa-chevron-left"></i> windows设置和删除代理
+    <a href="/blog/2019/06/27/thinkphp%E6%A8%A1%E5%9E%8B%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90/" rel="prev" title="thinkphp模型自动完成">
+      <i class="fa fa-chevron-left"></i> thinkphp模型自动完成
     </a></div>
-      <div class="post-nav-item">
-    <a href="/blog/2019/06/27/thinkphp%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F/" rel="next" title="thinkphp模板使用类的静态变量">
-      thinkphp模板使用类的静态变量 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
