@@ -1,37 +1,26 @@
 # hexo and next
 
-下载blog
+下载源码
 ```bash
-$ git clone git@github.com:liuxingjun/blog.git
+git clone git@github.com:liuxingjun/blog.git
+git submodule update #下载模版
 ```
-
-下载主题
-
-```bash
-$ git clone https://github.com/iissnan/hexo-theme-next themes/next
+or
+```
+git clone --recurse-submodules git@github.com:liuxingjun/blog.git
 ```
 
 下载npm依赖
 ```bash
-$ npm install
-```
-
-设置别名
-```bash
-$ alias hexo=hexo --config=source/_data/next.yml
+npm install
 ```
 
 生成静态文件(generate)并监视(watch)文件变动
 ```bash
-$ hexo g -w
+npx hexo g -w
 ```
 
 启动服务器(server)使用静态(static)文件
 ```bash
-$ hexo server -s
-```
-
-部署网站(deploy)
-```bash
-$ hexo clean && hexo deploy
+npx hexo server -s
 ```
