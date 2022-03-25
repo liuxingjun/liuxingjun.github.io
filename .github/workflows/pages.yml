@@ -9,6 +9,7 @@ on:
       - 'source/**'
       - 'themes/**'
       - '_config*.yaml'
+      - '.github/**'
   # 手动执行
   workflow_dispatch:
 jobs:
@@ -34,8 +35,8 @@ jobs:
       - name: checkout public
         uses: actions/checkout@v3
         with:
-          ref: 'gh-pages'
-          path: './public'
+          ref: gh-pages
+          path: public
       - name: Display the path
         run: tree ./public/
         shell: bash
