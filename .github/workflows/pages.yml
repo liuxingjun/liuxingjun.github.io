@@ -40,7 +40,7 @@ jobs:
       - name: show public
         run: ls -l public/sitemap.xml
       - name: Build
-        run: ls -l public/ & cat _config.yml | grep public_dir & npm run build
+        run: node -v && npm -v && npm ls --depth 0 && cat _config.yml | grep public_dir && ls -l public/  & npm run build
       - name: show public2
         run: ls -l public/sitemap.xml
       # - name: Deploy
