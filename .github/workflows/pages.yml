@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master  # default branch
+    paths:
+      - 'scaffolds/**'
+      - 'source/**'
+      - 'themes/**'
+      - '_config*.yaml'
   # 手动执行
   workflow_dispatch:
 jobs:
