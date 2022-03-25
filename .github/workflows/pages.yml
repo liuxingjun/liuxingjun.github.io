@@ -35,11 +35,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: 'gh-pages'
-          path: ./public
-      - name: Build
-        run: npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          path: './public'
+      - name: Display the path
+        run: tree ./public/
+        shell: bash
+
+      #- name: Build
+      #  run: npm run build
+      #- name: Deploy
+      #  uses: peaceiris/actions-gh-pages@v3
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: ./public
