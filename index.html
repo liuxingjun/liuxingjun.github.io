@@ -187,7 +187,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
 
           
@@ -262,7 +262,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -292,24 +292,14 @@
 <p>当时如上方法有个问题，无输出时命令执行错误无法提示<br>例如 <code>echo &quot;abc&quot; | grep d</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;abc&quot; | grep d</span><br><span class="line">$ echo $?</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
 <p>如果用如上代码执行<code>echo &quot;abc&quot; | grep d</code>,既没有返回命令输出，也没有报错，这在单元测试是不通过的</p>
-<p>既然 <code>cmd.Wait()</code> 执行后返回值放到了done chan， 那判断下就行<br>将select case 修改为如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">select &#123;</span><br><span class="line">case &lt;-after:</span><br><span class="line">    err = cmd.Process.Signal(syscall.SIGINT)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return &quot;&quot;, err</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(time.Second)</span><br><span class="line">    err = cmd.Process.Kill()</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return &quot;&quot;, err</span><br><span class="line">    &#125;</span><br><span class="line">    return &quot;&quot;, errors.New(&quot;exec cmd timeout&quot;)</span><br><span class="line">case err := &lt;-done:</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return &quot;&quot;, err</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>到这里 执行超时错误，返回命令输出 2大功能已经实现了，只剩下实时日志输出了<br>看如下代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd := exec.Command(commandName, params...)</span><br><span class="line">var stdout bytes.Buffer</span><br><span class="line">cmd.Stdout = &amp;stdout</span><br></pre></td></tr></table></figure>
-<p>那是不是把 os.Stdout 赋值给 cmd.Stdout 就可以看到实时输出了？<br>我太天真的，虽然可以实时日志输出，但是没有返回值了，因为输出到了 <code>os.Stdout</code>,变量<code>var stdout bytes.Buffer</code>就没有数据，最后没办法return</p>
-<p>我们需要一个变量保存 命令执行的输出，然后实时从这个变量里面取出日志打印，命令执行完之后，把这个变量返回出去<br>那我直接读取变量<code>stdout</code> 不就可以了吗？<br>在执行<code>done &lt;- cmd.Wait()</code>的协程前增加读取程序并打印</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">go func() &#123;</span><br><span class="line">    for &#123;</span><br><span class="line">        tmp := make([]byte, 256)</span><br><span class="line">        if _, err = stdout.Read(tmp); err == io.EOF &#123;</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">        line := string(tmp)</span><br><span class="line">        CMDLog.Debugf(line) // 打印日志</span><br><span class="line">        log.Println(line)</span><br><span class="line">        out += line         //追加命令执行输出</span><br><span class="line">    &#125;</span><br><span class="line">    done &lt;- cmd.Wait()</span><br><span class="line">&#125;() </span><br></pre></td></tr></table></figure>
-<p>这里就完成了，实时日志打印</p>
-<p>不过有个隐患，这里设置的定长块256，如果打印一些有格式的输出，超过256长度打印输出的时候会把格式打乱，比如命令为<code>ls -l</code>时</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./test.go </span><br><span class="line">2022/03/25 15:15:09 total 52</span><br><span class="line">drwxr-xr-x 3 root root 4096 Jun  4  2021 build</span><br><span class="line">drwxr-xr-x 3 root root 4096 Jun  4  2021 cmd</span><br><span class="line">drwxr-xr-x 4 root root 4096 Mar 24 11:18 conf</span><br><span class="line">-rw-r--r-- 1 root root 1024 Mar 24 11:18 go.mod</span><br><span class="line">-rw-r--r-- 1 root root 9145 Mar 21 16:12 go.sum</span><br><span class="line">-rw-r--r-- 1 </span><br><span class="line">2022/03/25 15:15:09 root root 2005 Sep 28 21:03 Makefile</span><br><span class="line">drwxr-xr-x 6 root root 4096 Mar 21 16:37 pkg</span><br><span class="line">drwxr-xr-x 2 root root 4096 Jun  4  2021 script</span><br><span class="line">drwxr-xr-x 2 root root 4096 Mar  7 20:29 test</span><br><span class="line">-rw-r--r-- 1 root root 2198 Mar 25 15:15 test.go</span><br><span class="line">-rwxr-xr-x 1 root root   45 Mar</span><br><span class="line">2022/03/25 15:15:09  25 11:51 test.sh</span><br></pre></td></tr></table></figure>
-<p>在Makefile 上一行就发生了错位<br>需要使用按行读取<br>而且拿到返回值后对比也有问题</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">	out, err := SyncExecShell(120, &quot;echo&quot;, &quot;hello&quot;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		panic(err)</span><br><span class="line">	&#125;</span><br><span class="line">	if out == &quot;hello&quot; &#123;</span><br><span class="line">		fmt.Println(&quot;一致&quot;)</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		fmt.Println(&quot;不一致&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(out, &quot;:&quot;, []byte(out))</span><br><span class="line">	fmt.Println(&quot;hello:&quot;, []byte(&quot;hello&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./test.go </span><br><span class="line">2022/03/25 15:27:52 hello</span><br><span class="line"></span><br><span class="line">不一致</span><br><span class="line">hello: [104 101 108 108 111 10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span><br><span class="line">hello: [104 101 108 108 111]</span><br></pre></td></tr></table></figure>
-<p>这里可以看到，因为是定长的byte，所以后面用0来补位了<br>我们需要使用其他读取的方法，比如<a target="_blank" rel="noopener" href="https://pkg.go.dev/bufio">bufio</a>包的的<a target="_blank" rel="noopener" href="https://pkg.go.dev/bufio#Scanner">Scanner</a>类型<br>最终代码如下</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">func SyncExecShell(timeoutSeconds time.Duration, commandName string, params ...string) (string, error) &#123;</span><br><span class="line">	cmd := exec.Command(commandName, params...)</span><br><span class="line">	//显示运行的命令</span><br><span class="line">	out := &quot;&quot;</span><br><span class="line">	stdout, err := cmd.StdoutPipe()</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	if err = cmd.Start(); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	done := make(chan error)</span><br><span class="line">	go func() &#123;</span><br><span class="line">		scanner := bufio.NewScanner(stdout)</span><br><span class="line">		for scanner.Scan() &#123;</span><br><span class="line">			log.Println(scanner.Text())</span><br><span class="line">			out += scanner.Text() //追加命令执行输出</span><br><span class="line">		&#125;</span><br><span class="line">		done &lt;- cmd.Wait()</span><br><span class="line">	&#125;()</span><br><span class="line">	after := time.After(time.Second * 120)</span><br><span class="line">	select &#123;</span><br><span class="line">	case &lt;-after:</span><br><span class="line">		err = cmd.Process.Signal(syscall.SIGINT)</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			return &quot;&quot;, err</span><br><span class="line">		&#125;</span><br><span class="line">		time.Sleep(time.Second)</span><br><span class="line">		err = cmd.Process.Kill()</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			return &quot;&quot;, err</span><br><span class="line">		&#125;</span><br><span class="line">		return &quot;&quot;, errors.New(&quot;exec cmd timeout&quot;)</span><br><span class="line">	case err = &lt;-done:</span><br><span class="line">		if err != nil &#123;</span><br><span class="line">			return &quot;&quot;, err</span><br><span class="line">		&#125;</span><br><span class="line">		return out, nil</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>至此，所有功能完美使用</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/25/go%E6%89%A7%E8%A1%8Clinux%E5%91%BD%E4%BB%A4%E8%BF%9B%E5%8C%96%E5%8F%B2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -359,7 +349,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -444,7 +434,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -520,7 +510,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -598,7 +588,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -685,7 +675,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -767,7 +757,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -852,7 +842,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -939,7 +929,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-25 07:50:36" itemprop="dateModified" datetime="2022-03-25T07:50:36+00:00">2022-03-25</time>
+                <time title="修改时间：2022-03-25 07:53:31" itemprop="dateModified" datetime="2022-03-25T07:53:31+00:00">2022-03-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
