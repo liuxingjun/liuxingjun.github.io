@@ -15,7 +15,7 @@ jobs:
   pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true
       - name: Use Node.js 13.x
@@ -31,6 +31,11 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: checkout public
+        uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+          path: ./public
       - name: Build
         run: npm run build
       - name: Deploy
