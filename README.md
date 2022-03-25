@@ -2,12 +2,13 @@
 
 下载源码
 ```bash
-git clone git@github.com:liuxingjun/blog.git
+git clone git@github.com:liuxingjun/liuxingjun.github.io.git blog
+git submodule init
 git submodule update #下载模版
 ```
 or
 ```
-git clone --recurse-submodules git@github.com:liuxingjun/blog.git
+git clone --recurse-submodules https://github.com/liuxingjun/liuxingjun.github.io.git blog
 ```
 
 下载npm依赖
