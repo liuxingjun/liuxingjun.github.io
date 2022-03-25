@@ -37,11 +37,12 @@ jobs:
         with:
           ref: gh-pages
           path: public
-      - name: Display the path
-        run: tree ./public/
-        shell: bash
+      - name: show public
+        run: ls -l public/
       - name: Build
         run: npm run build
+      - name: show public2
+        run: ls -l public/
       #- name: Deploy
       #  uses: peaceiris/actions-gh-pages@v3
       #  with:
