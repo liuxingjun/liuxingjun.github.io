@@ -73,14 +73,14 @@ func SyncRunTimeout(timeoutSeconds time.Duration, commandName string, params ...
 	return stdout.String(), nil
 }
 ```
-当时如上方法有个问题，无输出时命令执行错误无法提示
+但是如上方法有个问题，无输出时命令执行错误无法提示
 例如 `echo "abc" | grep d`
 ```
 $ echo "abc" | grep d
 $ echo $?
 1
 ```
-如果用如上代码执行`echo "abc" | grep d`,既没有返回命令输出，也没有报错，这在单元测试是不通过的
+如果用如上代码`echo "abc" | grep d`执行,既没有返回命令输出，也没有报错，这在单元测试是不通过的
 <!-- more -->
 既然 `cmd.Wait()` 执行后返回值放到了done chan， 那判断下就行
 将select case 修改为如下
