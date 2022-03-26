@@ -1,6 +1,7 @@
 ---
 title: thinkphp模型自动完成
 date: 2019-06-27 11:15:24
+updated: 2019-06-27 11:15:24
 categories: php
 tags:
   - thinkphp

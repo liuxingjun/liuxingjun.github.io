@@ -1,6 +1,7 @@
 ---
 title: 用git打造一个便携版SublimeText3
 date: 2018-04-27 11:59:02
+updated: 2018-04-27 11:59:02
 categories: 工具
 tags:
   - git

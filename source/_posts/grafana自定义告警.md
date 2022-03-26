@@ -1,6 +1,7 @@
 ---
 title: grafana自定义告警模版
 date: 2022-03-16 10:34:00
+updated: 2022-03-16 10:34:00
 categories:
 tags:
   - grafana

@@ -1,6 +1,7 @@
 ---
 title: thinkphp模板使用类的静态变量
 date: 2019-06-27 10:56:24
+updated: 2019-06-27 10:56:24
 categories: php
 tags: 
   - thinkphp
