@@ -13,8 +13,8 @@ on:
   # 手动执行
   workflow_dispatch:
 jobs:
-  pages:
-    runs-on: ubuntu-latest
+  init:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -31,7 +31,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
       - name: checkout public
         uses: actions/checkout@v3
         with:
@@ -40,7 +40,7 @@ jobs:
       - name: show public
         run: ls -l public/sitemap.xml
       - name: Build
-        run: node -v && npm -v && npm ls --depth 0 && cat _config.yml | grep public_dir && ls -l public/  & npm run build
+        run: npm run build
       - name: show public2
         run: ls -l public/sitemap.xml
       # - name: Deploy
