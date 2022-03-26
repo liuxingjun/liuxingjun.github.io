@@ -13,7 +13,7 @@ on:
   # 手动执行
   workflow_dispatch:
 jobs:
-  init:
+  pages:
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v3
@@ -37,12 +37,10 @@ jobs:
         with:
           ref: gh-pages
           path: public
-      - name: show public
-        run: ls -l public/sitemap.xml
+      - run: ls -l public/sitemap.xml
       - name: Build
         run: npm run build
-      - name: show public2
-        run: ls -l public/sitemap.xml
+      - run: git status
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
       #   with:
