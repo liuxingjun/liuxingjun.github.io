@@ -40,7 +40,7 @@ jobs:
       - run: ls -l public/sitemap.xml
       - name: Build
         run: npm run build
-      - run: cd public &&  git status &&  git diff sitemap.xml
+      - run: cd public &&  git status &&  git diff about/index.html
       # - name: Deploy
       #   uses: peaceiris/actions-gh-pages@v3
       #   with:
