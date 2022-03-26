@@ -9,13 +9,14 @@ on:
       - 'source/**'
       - 'themes/**'
       - '_config*.yaml'
+      - '.github/**'
   # 手动执行
   workflow_dispatch:
 jobs:
   pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true
       - name: Use Node.js 13.x
@@ -31,10 +32,19 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: checkout public
+        uses: actions/checkout@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          ref: gh-pages
+          path: public
+      - name: show public
+        run: ls -l public/sitemap.xml
+      - name: Build
+        run: node -v && npm -v && npm ls --depth 0 && cat _config.yml | grep public_dir && ls -l public/  & npm run build
+      - name: show public2
+        run: ls -l public/sitemap.xml
+      # - name: Deploy
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
