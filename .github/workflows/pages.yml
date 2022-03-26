@@ -39,7 +39,7 @@ jobs:
           path: public
       - name: Build
         run: npm run build
-      - run: cd public &&  git status
+      - run: cd public &&  git diff css/main.css
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
