@@ -37,10 +37,9 @@ jobs:
         with:
           ref: gh-pages
           path: public
-      - run: ls -l public/sitemap.xml
       - name: Build
         run: npm run build
-      - run: cd public &&  git diff about/index.html
+      - run: cd public &&  git status
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
