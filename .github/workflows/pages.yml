@@ -40,10 +40,10 @@ jobs:
       - name: Build
         run: npm run build
       - run: cd public &&  git status && git diff css/main.css
-      # - name: Deploy
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./public
-      #     keep_files: true
-      #     commit_message: ${{ github.event.head_commit.message }}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: true
+          commit_message: ${{ github.event.head_commit.message }}
