@@ -1,5 +1,4 @@
-# hexo and next
-
+# 本地开发
 下载源码
 ```bash
 git clone git@github.com:liuxingjun/liuxingjun.github.io.git blog
@@ -25,3 +24,6 @@ npx hexo g -w
 ```bash
 npx hexo server -s
 ```
+# 部署
+使用 [github actions ](https://github.com/liuxingjun/liuxingjun.github.io/blob/master/.github/workflows/pages.yml) 编译部署，提交代码到主分支即触发自动编译部署
+
