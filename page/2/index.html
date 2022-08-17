@@ -22,27 +22,27 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="刘星军的博客">
-<meta property="og:url" content="https://liuxingjun.github.io/tags/websocket/index.html">
+<meta property="og:url" content="https://liuxingjun.github.io/page/2/index.html">
 <meta property="og:site_name" content="刘星军的博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="刘星军">
 <meta property="article:tag" content="php web">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://liuxingjun.github.io/tags/websocket/">
+<link rel="canonical" href="https://liuxingjun.github.io/page/2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : false,
+    isHome : true,
     isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: websocket | 刘星军的博客</title>
+  <title>刘星军的博客</title>
   
 
 
@@ -150,52 +150,89 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://liuxingjun.github.io/2018/04/17/swoole-example/">
 
-  
-  
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">websocket
-          <small>标签</small>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘星军">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘星军的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/04/17/swoole-example/" class="post-title-link" itemprop="url">swoole-example</a>
         </h2>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-04-17 14:16:01" itemprop="dateCreated datePublished" datetime="2018-04-17T14:16:01+00:00">2018-04-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2018</span>
+          <h2 id="创建websocket服务对象"><a href="#创建websocket服务对象" class="headerlink" title="创建websocket服务对象"></a>创建websocket服务对象</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$server</span> = <span class="keyword">new</span> <span class="title class_">swoole_websocket_server</span>(<span class="string">&quot;0.0.0.0&quot;</span>, <span class="number">9501</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="收到消息回调"><a href="#收到消息回调" class="headerlink" title="收到消息回调"></a>收到消息回调</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$server</span>-&gt;<span class="title function_ invoke__">on</span>(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">swoole_websocket_server <span class="variable">$server</span>, <span class="variable">$frame</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;receive from <span class="subst">&#123;$frame-&gt;fd&#125;</span>:<span class="subst">&#123;$frame-&gt;data&#125;</span>,opcode:<span class="subst">&#123;$frame-&gt;opcode&#125;</span>,fin:<span class="subst">&#123;$frame-&gt;finish&#125;</span>\n&quot;</span>;</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$server</span>-&gt;connections <span class="keyword">as</span> <span class="variable">$fd</span>) &#123;</span><br><span class="line">        <span class="variable">$server</span>-&gt;<span class="title function_ invoke__">push</span>(<span class="variable">$fd</span>, <span class="title function_ invoke__">json_encode</span>([<span class="variable">$frame</span>-&gt;fd,<span class="variable">$frame</span>-&gt;data]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/04/17/swoole-example/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2018-04-17T14:16:01+00:00"
-              content="2018-04-17">
-          04-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2018/04/17/swoole-example/" itemprop="url">
-            <span itemprop="name">swoole-example</span>
-          </a>
-      </div>
-
-    </header>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
   </article>
-
-    </div>
-  </div>
   
   
   
 
+
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 
 
