@@ -78,8 +78,33 @@ configure_file(config.h.in config.h)
 # add the executable
 add_executable(hello hello.cpp)
 ```
+### 2.3 更新hello.cpp
+``` cpp
+#include <iostream>
+#include <vector>
+#include "config.h"
+using namespace std;
 
-### 2.3 编译
+int main(int argc, char *argv[])
+{
+
+    if (argc == 1)
+    {
+        std::cout << "Hello World" << std::endl; 
+        return 0;
+    }
+    // 把 char 类型的argv 转为 string 类型
+    std::vector<std::string> all_args(argv + 1, argv + argc); 
+    if (all_args[0] == "version")
+    {
+        std::cout << "Version " << VERSION << std::endl;
+        return 0;
+    }
+    return 0;
+}
+```
+
+### 2.4 编译
 ``` bash
 cmake .  # 根据CMakeLists.txt 生成 Makefile 文件
 make  # 根据Makefile生成可执行文件
