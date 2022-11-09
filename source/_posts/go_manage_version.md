@@ -1,7 +1,7 @@
 ---
 title: golang 管理多版本
 date: 2022-11-08 17:53
-updated: 2022-11-08 17:53
+updated: 2022-11-09 10:07
 categories: golang
 ---
 
@@ -48,7 +48,7 @@ $ which go
 $ go version
 go version go1.16 linux/amd64
 $ mv /usr/local/go/bin/go /usr/local/go/bin/go1.16 
-$ update-alternatives --install /usr/bin/go go $(which go) 800 
+$ update-alternatives --install /usr/bin/go go $(which go1.16) 800 
 ```
 ### 一行命令安装新版golang
 ```bash
