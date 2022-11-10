@@ -116,7 +116,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">12</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">13</span></a>
 
   </li>
         <li class="menu-item menu-item-tags">
@@ -126,7 +126,7 @@
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
 
   </li>
   </ul>
@@ -152,6 +152,90 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://liuxingjun.github.io/2022/11/10/ansible%E5%88%9D%E5%B0%9D%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘星军">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘星军的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/11/10/ansible%E5%88%9D%E5%B0%9D%E8%AF%95/" class="post-title-link" itemprop="url">ansible初尝试</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-11-10 09:41:00" itemprop="dateCreated datePublished" datetime="2022-11-10T09:41:00+00:00">2022-11-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install ansible -y</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ansible --version</span><br><span class="line">ansible 2.9.6</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = [<span class="string">&#x27;/home/v_connliu/.ansible/plugins/modules&#x27;</span>, <span class="string">&#x27;/usr/share/ansible/plugins/modules&#x27;</span>]</span><br><span class="line">  ansible python module location = /usr/lib/python3/dist-packages/ansible</span><br><span class="line">  executable location = /usr/bin/ansible</span><br><span class="line">  python version = 3.8.10 (default, Jun 22 2022, 20:18:18) [GCC 9.4.0]</span><br></pre></td></tr></table></figure>
+<h2 id="添加节点"><a href="#添加节点" class="headerlink" title="添加节点"></a>添加节点</h2><h3 id="分组节点"><a href="#分组节点" class="headerlink" title="分组节点"></a>分组节点</h3><figure class="highlight ini"><figcaption><span>/etc/ansible/hosts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[shudao_online]</span></span><br><span class="line">192.168.1.10</span><br><span class="line">192.168.1.11</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套分组"><a href="#嵌套分组" class="headerlink" title="嵌套分组"></a>嵌套分组</h3><figure class="highlight ini"><figcaption><span>/etc/ansible/hosts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[shudao:children]</span></span><br><span class="line">shudao_online</span><br><span class="line">shudao_proxy</span><br><span class="line"></span><br><span class="line"><span class="section">[shudao_online]</span></span><br><span class="line">192.168.1.10</span><br><span class="line">192.168.1.11</span><br><span class="line"></span><br><span class="line"><span class="section">[shudao_proxy]</span></span><br><span class="line">192.168.2.10</span><br><span class="line">192.168.2.11</span><br></pre></td></tr></table></figure>
+<h3 id="使用密码登录"><a href="#使用密码登录" class="headerlink" title="使用密码登录"></a>使用密码登录</h3><figure class="highlight ini"><figcaption><span>/etc/ansible/hosts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[shudao:vars]</span></span><br><span class="line"><span class="attr">ansible_ssh_user</span>=<span class="string">&#x27;root&#x27;</span></span><br><span class="line"><span class="attr">ansible_ssh_pass</span>=<span class="string">&#x27;root&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>使用密码登录还需要安装 <code>sshpass</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install sshpass</span><br></pre></td></tr></table></figure>
+
+<p>单独操作子分组时, 例如<code>ansible shudao_onlie  -m shell  -a &#39;hostnsme&#39;</code> 还需要增加</p>
+<figure class="highlight ini"><figcaption><span>/etc/ansible/hosts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[shudao_onlie:vars]</span></span><br><span class="line"><span class="attr">ansible_ssh_user</span>=<span class="string">&#x27;root&#x27;</span></span><br><span class="line"><span class="attr">ansible_ssh_pass</span>=<span class="string">&#x27;root&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h2><h3 id="使用command-模块来执行查看ip命令"><a href="#使用command-模块来执行查看ip命令" class="headerlink" title="使用command 模块来执行查看ip命令"></a>使用command 模块来执行查看ip命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao -a <span class="string">&quot;ip -4 addr&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用shell-模块来清空history"><a href="#使用shell-模块来清空history" class="headerlink" title="使用shell 模块来清空history"></a>使用shell 模块来清空history</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao -m shell -a &#x27;cat /dev/null &gt; ~/.bash_history&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="proxy"><a href="#proxy" class="headerlink" title="proxy"></a>proxy</h3><h4 id="增加proxy"><a href="#增加proxy" class="headerlink" title="增加proxy"></a>增加proxy</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmd=<span class="string">&quot;echo &#x27;export http_proxy=http://10.149.9.97:3128\nexport https_proxy=http://10.149.9.97:3128&#x27; &gt;&gt; /etc/profile&quot;</span></span><br><span class="line">ansible shudao_proxy -m shell -a <span class="string">&quot;<span class="variable">$cmd</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="删除proxy"><a href="#删除proxy" class="headerlink" title="删除proxy"></a>删除proxy</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy -a <span class="string">&quot;sed -i -e &#x27;/proxy/d&#x27; /etc/profile&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="apt-增加proxy"><a href="#apt-增加proxy" class="headerlink" title="apt 增加proxy"></a>apt 增加proxy</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy -m shell -a <span class="string">&quot;echo &#x27;Acquire::http::proxy \&quot;http://10.149.9.97:3128\&quot;;\nAcquire::https::proxy \&quot;http://10.149.9.97:3128\&quot;;&#x27; &gt;&gt; /etc/apt/apt.conf.d/01proxy&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改镜像源"><a href="#修改镜像源" class="headerlink" title="修改镜像源"></a>修改镜像源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy -a <span class="string">&#x27;sed -i &quot;s@/cn.archive.ubuntu.com/@/mirrors.aliyun.com/@g&quot; /etc/apt/sources.list&#x27;</span></span><br></pre></td></tr></table></figure>
+<h4 id="执行aptu-pdate"><a href="#执行aptu-pdate" class="headerlink" title="执行aptu pdate"></a>执行aptu pdate</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy  -m apt  -a <span class="string">&quot;update_cache=yes&quot;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -851,84 +935,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://liuxingjun.github.io/2018/04/27/%E7%94%A8git%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E4%BE%BF%E6%90%BA%E7%89%88sublimetext3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="刘星军">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="刘星军的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/04/27/%E7%94%A8git%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E4%BE%BF%E6%90%BA%E7%89%88sublimetext3/" class="post-title-link" itemprop="url">用git打造一个便携版SublimeText3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-04-27 11:59:02" itemprop="dateCreated datePublished" datetime="2018-04-27T11:59:02+00:00">2018-04-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="下载-amp-安装"><a href="#下载-amp-安装" class="headerlink" title="下载 &amp; 安装"></a>下载 &amp; 安装</h2><p>  官网已经提供便携版本(portable version)下载了, 也可以点击此处下载</p>
-<p>  <a target="_blank" rel="noopener" href="https://download.sublimetext.com/Sublime%20Text%20Build%203143.zip">32bit</a></p>
-<p>  <a target="_blank" rel="noopener" href="https://download.sublimetext.com/Sublime%20Text%20Build%203143%20x64.zip">64bit</a></p>
-<p>  解压到安装目录</p>
-<h2 id="添加右键菜单"><a href="#添加右键菜单" class="headerlink" title="添加右键菜单"></a>添加右键菜单</h2><p>  新建一个后缀为<code>.inf</code>的文件，内容为</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/04/27/%E7%94%A8git%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E4%BE%BF%E6%90%BA%E7%89%88sublimetext3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -998,14 +1004,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
