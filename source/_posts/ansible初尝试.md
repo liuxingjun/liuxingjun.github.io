@@ -118,5 +118,5 @@ ansible --help
   -b, --become          使用become 提升权限
 ```
 ```shell
-ansible shudao_proxy -m shell -a "sudo mkdir /data/prometheus"
+ansible shudao_proxy -m shell -a "sudo mkdir /data/prometheus" -b -K
 ```
