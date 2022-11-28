@@ -59,7 +59,7 @@ Hello World
 
 ## 2. cmake编译
 ### 2.1 创建  config.h.in 文件
-```
+```cpp config.h.in
 #define VERSION @PROJECT_VERSION@
 #define VERSION_MAJOR @PROJECT_VERSION_MAJOR@
 #define VERSION_MINOR @PROJECT_VERSION_MINOR@
@@ -79,7 +79,7 @@ configure_file(config.h.in config.h)
 add_executable(hello hello.cpp)
 ```
 ### 2.3 更新hello.cpp
-``` cpp
+``` cpp hello.cpp
 #include <iostream>
 #include <vector>
 #include "config.h"

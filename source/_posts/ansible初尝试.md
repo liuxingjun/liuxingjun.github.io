@@ -1,7 +1,7 @@
 ---
 title: ansible初尝试
 date: 2022-11-10 9:41
-updated: 2022-11-10 9:41
+updated: 2022-11-28 17:18
 categories: linux
 ---
 
@@ -93,4 +93,16 @@ ansible shudao_proxy -a 'sed -i "s@/cn.archive.ubuntu.com/@/mirrors.aliyun.com/@
 #### 执行aptu pdate
 ```bash
 ansible shudao_proxy  -m apt  -a "update_cache=yes"
+```
+
+### 使用sudo
+```ini /etc/ansible/ansible.cfg
+[privilege_escalation]
+become=True
+become_method=sudo
+become_user=root
+become_ask_pass=True
+```
+```bash
+ansible shudao_proxy -m shell -a "sudo mkdir /data/prometheus"
 ```
