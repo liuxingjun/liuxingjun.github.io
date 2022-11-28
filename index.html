@@ -234,7 +234,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy -m shell -a <span class="string">&quot;sudo mkdir /data/prometheus&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="临时开启"><a href="#临时开启" class="headerlink" title="临时开启"></a>临时开启</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible --help</span><br><span class="line">特权升级选项:</span><br><span class="line">  -K, --ask-become-pass 开启提示输入密码</span><br><span class="line">  -b, --become          使用become 提升权限</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy -m shell -a &quot;sudo mkdir /data/prometheus&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible shudao_proxy -m shell -a &quot;sudo mkdir /data/prometheus&quot; -b -K</span><br></pre></td></tr></table></figure>
       
     </div>
 
