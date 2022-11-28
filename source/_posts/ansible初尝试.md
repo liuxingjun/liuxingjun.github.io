@@ -96,6 +96,8 @@ ansible shudao_proxy  -m apt  -a "update_cache=yes"
 ```
 
 ### 使用sudo
+
+#### 全局开启
 ```ini /etc/ansible/ansible.cfg
 [privilege_escalation]
 become=True
@@ -104,5 +106,17 @@ become_user=root
 become_ask_pass=True
 ```
 ```bash
+ansible shudao_proxy -m shell -a "sudo mkdir /data/prometheus"
+```
+
+#### 临时开启
+
+```
+ansible --help
+特权升级选项:
+  -K, --ask-become-pass 开启提示输入密码
+  -b, --become          使用become 提升权限
+```
+```shell
 ansible shudao_proxy -m shell -a "sudo mkdir /data/prometheus"
 ```
