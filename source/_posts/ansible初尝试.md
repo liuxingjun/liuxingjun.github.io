@@ -64,7 +64,7 @@ ansible_ssh_pass='root'
 
 ### 使用command 模块来执行查看ip命令
 ```bash
-ansible shudao -a "ip -4 addr"
+ansible shudao -a "ip -4 addr show eth0"
 ```
 ### 使用shell 模块来清空history
 ```
