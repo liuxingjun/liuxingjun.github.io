@@ -41,13 +41,13 @@ Windows版本： 10.0.22621.1105
 遂放弃
 ### 使用WSL
 查看wsl网关
-``
+```bash
 root@ubuntu:~# route -n
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         172.31.176.1    0.0.0.0         UG    0      0        0 eth0
 172.31.176.0    0.0.0.0         255.255.240.0   U     0      0        0 eth0`
-``
+```
 进入虚拟机后修改ip,子网掩码,网关,dns服务器
 ip:  使用 172.31.176.0 同网段
 子网掩码:255.255.240.0
