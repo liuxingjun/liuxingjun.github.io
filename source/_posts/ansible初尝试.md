@@ -1,7 +1,7 @@
 ---
 title: ansible初尝试
 date: 2022-11-10 9:41
-updated: 2022-11-28 17:18
+updated: 2023-02-01 10:30
 categories: linux
 ---
 
@@ -59,6 +59,10 @@ apt install sshpass
 ansible_ssh_user='root'
 ansible_ssh_pass='root'
 ```
+
+更新
+操作子分组时 使用`--limit`参数,缩写`-l`即可不在子分组写相同的环境变量
+例如 `ansible shudao -limit shudao_onlie -m shell  -a 'hostnsme'` 
 
 ## 操作节点
 
