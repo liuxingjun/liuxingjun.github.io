@@ -3,6 +3,7 @@ title: ansible初尝试
 date: 2022-11-10 9:41
 updated: 2023-02-01 10:30
 categories: linux
+description: ansible 安装,编写hosts,执行命令,sudo 提升权限
 ---
 
 ## 安装
