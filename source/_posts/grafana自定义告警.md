@@ -1,7 +1,7 @@
 ---
 title: grafana自定义告警模版
 date: 2022-03-16 10:34:00
-updated: 2022-03-26 20:50:00
+updated: 2023-03-03 14:40:00
 categories:
 tags:
   - grafana
@@ -15,7 +15,7 @@ tags:
 所以修改模版来精简告警消息
 
 ## 方式一： 文本类告警
-例如企业微信类的文本告警，根据官网文档知道默认模版来自 [default_template.go](https://github.com/grafana/grafana/blob/main/pkg/services/ngalert/notifier/channels/default_template.go) 
+例如企业微信类的文本告警，根据官网文档知道默认模版来自 [default_template.go](https://github.com/grafana/grafana/blob/v9.3.8/pkg/services/ngalert/notifier/channels/default_template.go) 
 主要定义了2个模版，一个是`__text_alert_list` ，另一个`default.message` 使用了模版`__text_alert_list`
 我们只需要根据`__text_alert_list` 模版修改为自定义模版即可
 1. 创建一个消息告警模版
@@ -41,7 +41,9 @@ Labels:
 如下是我修改的模版
 ```
 {{ define "text_alert_list" }}{{ range . }}
-Annotations:
+Labels:
+{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}
+{{ end }}Annotations:
 {{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}
 {{ end }}{{ end }}{{ end }}
 ```
@@ -49,10 +51,10 @@ Annotations:
 Template name 填写 message
 Content 填写
 ```
-{{ define "message" }}{{ if gt (len .Alerts.Firing) 0 }}**Firing**
+{{ define "message" }}{{ if gt (len .Alerts.Firing) 0 }}**触发**
 {{ template "text_alert_list" .Alerts.Firing }}{{ if gt (len .Alerts.Resolved) 0 }}
 
-{{ end }}{{ end }}{{ if gt (len .Alerts.Resolved) 0 }}**Resolved**
+{{ end }}{{ end }}{{ if gt (len .Alerts.Resolved) 0 }}**已解决**
 {{ template "text_alert_list" .Alerts.Resolved }}{{ end }}{{ end }}
 ```
 最终如下
