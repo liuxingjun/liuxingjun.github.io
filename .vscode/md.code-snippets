@@ -11,7 +11,7 @@
 		"prefix": "head",
 		"body": [
 			"---",
-			"title: ",
+			"title: $TM_FILENAME_BASE",
 			"date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
 			"updated: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE",
 			"categories: ",
